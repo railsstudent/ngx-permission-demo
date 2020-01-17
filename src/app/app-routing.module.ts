@@ -8,7 +8,7 @@ const routes: Routes = [
     path: 'route-a',
     component: RouteAComponent
   },
-    {
+  {
     path: 'route-b',
     component: RouteBComponent
   }
