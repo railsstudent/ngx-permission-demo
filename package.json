@@ -24,7 +24,8 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "check-onpush": "npx @ngneat/check-onpush"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.803.23",
@@ -53,7 +54,8 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "lint-staged && npm run lint",
+      "pre-push": "npm run check-onpush"
     }
   },
   "lint-staged": {

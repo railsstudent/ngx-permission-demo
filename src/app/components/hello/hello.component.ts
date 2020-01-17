@@ -5,7 +5,7 @@ import { Subject } from 'rxjs';
 import { map, takeUntil } from 'rxjs/operators';
 
 @Component({
-    selector: 'hello',
+    selector: 'my-hello',
     templateUrl: './hello.component.html',
     styles: [
         `
