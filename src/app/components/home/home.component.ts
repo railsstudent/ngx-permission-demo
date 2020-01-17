@@ -4,7 +4,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
     selector: 'app-home',
     template: `
         <p>
-            Test ngx-permission redirection rules
+            Home component
         </p>
     `,
     styles: [],

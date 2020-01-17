@@ -54,11 +54,10 @@ const routes: Routes = [
             permissions: {
                 only: ['PRESIDENT', 'PRIME-MINISTER', 'ADMIN'],
                 redirectTo: (
-                    rejectedPermissionName: string,
+                    _rejectedPermissionName: string,
                     _activateRouteSnapshot: ActivatedRouteSnapshot,
                     _routeStateSnapshot: RouterStateSnapshot,
                 ) => {
-                    console.log('rejectedPermissionName', rejectedPermissionName);
                     return '/';
                 },
             },
