@@ -25,6 +25,14 @@ export class HelloComponent implements OnInit  {
   permissions$ = this.ps.permissions$;
   roles$ = this.rs.roles$;
 
+  rolePermissions = {
+    'Guest': ['GUEST'],
+    'Admin': ['ADMIN'],
+    'President': ['PRESIDENT'],
+    'PrimeMinister': ['PRIME-MINISTER'],
+    'PresidentAndPrimeMinister': ['PRIME-MINISTER', 'PRESIDENT']
+  }
+
   unsubscribe$ = new Subject();
 
   hasRole$ = this.roles$.pipe(
@@ -34,30 +42,26 @@ export class HelloComponent implements OnInit  {
 
   constructor(private  ps: NgxPermissionsService, private rs: NgxRolesService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    const guest = 'Guest';
+    const permissions = this.rolePermissions[guest];
+    this.ps.loadPermissions(permissions);
+    this.rs.addRole(guest, permissions);
+  }
 
   addRole(role: string) {
     this.roles.forEach(r => this.rs.removeRole(r));
     switch(role) {
       case 'Guest':
-        this.ps.loadPermissions(['GUEST']);
-        this.rs.addRole(role, ['GUEST']);
-        break;
       case 'Admin':
-        this.ps.loadPermissions(['ADMIN']);
-        this.rs.addRole(role, ['ADMIN']);
-        break;
       case 'President':
-        this.ps.loadPermissions(['PRESIDENT']);
-        this.rs.addRole(role, ['PRESIDENT']);
-        break;
       case 'PrimeMinister':
-        this.ps.loadPermissions(['PRIME-MINISTER']);
-        this.rs.addRole(role, ['PRIME-MINISTER']);
-        break;
       case 'PresidentAndPrimeMinister': 
-        this.ps.loadPermissions(['PRIME-MINISTER', 'PRESIDENT']);
-        this.rs.addRole(role, ['PRIME-MINISTER', 'PRESIDENT']);
+        const permissions = this.rolePermissions[role];
+        if (permissions) {
+          this.ps.loadPermissions(permissions);
+          this.rs.addRole(role, permissions);
+        }
         break;
       default:
         break;
