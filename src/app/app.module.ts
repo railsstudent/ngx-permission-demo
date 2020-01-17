@@ -1,22 +1,14 @@
-import { APP_INITIALIZER, NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
 import { NgxPermissionsModule } from 'ngx-permissions';
 import { AppRoutingModule } from './app-routing.module';
-
 import { AppComponent } from './app.component';
-import { HelloComponent } from './hello.component';
-import { RouteAComponent } from './route-a/route-a.component';
-import { RouteBComponent } from './route-b/route-b.component';
+import { HelloComponent, RouteAComponent, RouteBComponent } from './components';
 
 @NgModule({
-  imports:      [ 
-    BrowserModule, 
-    FormsModule, 
-    NgxPermissionsModule.forRoot(),
-    AppRoutingModule 
-  ],
-  declarations: [ AppComponent, HelloComponent, RouteAComponent, RouteBComponent ],
-  bootstrap:    [ AppComponent ],
+    imports: [BrowserModule, FormsModule, NgxPermissionsModule.forRoot(), AppRoutingModule],
+    declarations: [AppComponent, HelloComponent, RouteAComponent, RouteBComponent],
+    bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
