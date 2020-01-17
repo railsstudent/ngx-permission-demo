@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { NgxPermissionsService, NgxRolesService } from 'ngx-permissions';
 import { Subject } from 'rxjs';
 import { map, takeUntil } from 'rxjs/operators';
@@ -22,6 +23,7 @@ import { map, takeUntil } from 'rxjs/operators';
             }
         `,
     ],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HelloComponent implements OnInit {
     @Input() name: string;
@@ -45,7 +47,7 @@ export class HelloComponent implements OnInit {
         takeUntil(this.unsubscribe$),
     );
 
-    constructor(private ps: NgxPermissionsService, private rs: NgxRolesService) {}
+    constructor(private ps: NgxPermissionsService, private rs: NgxRolesService, private router: Router) {}
 
     ngOnInit() {
         const guest = 'Guest';
@@ -67,6 +69,7 @@ export class HelloComponent implements OnInit {
                     this.ps.loadPermissions(permissions);
                     this.rs.addRole(role, permissions);
                 }
+                this.router.navigate(['/']);
                 break;
             default:
                 break;

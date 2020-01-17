@@ -1,11 +1,16 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 
 @Component({
-    selector: 'app-unauth',
-    templateUrl: './unauth.component.html',
+    selector: 'app-home',
+    template: `
+        <p>
+            Test ngx-permission redirection rules
+        </p>
+    `,
+    styles: [],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class UnauthComponent implements OnInit {
+export class HomeComponent implements OnInit {
     constructor() {}
 
     ngOnInit() {}

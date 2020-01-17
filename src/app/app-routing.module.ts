@@ -1,9 +1,21 @@
 import { NgModule } from '@angular/core';
 import { ActivatedRouteSnapshot, RouterModule, RouterStateSnapshot, Routes } from '@angular/router';
 import { NgxPermissionsGuard } from 'ngx-permissions';
-import { RouteAComponent, RouteBComponent, UnauthComponent, UnauthGuestComponent } from './components';
+import {
+    HomeComponent,
+    PageNotFoundComponent,
+    RouteAComponent,
+    RouteBComponent,
+    UnauthComponent,
+    UnauthGuestComponent,
+} from './components';
 
 const routes: Routes = [
+    {
+        path: '',
+        pathMatch: 'full',
+        component: HomeComponent,
+    },
     {
         path: 'route-a',
         component: RouteAComponent,
@@ -11,28 +23,7 @@ const routes: Routes = [
         data: {
             permissions: {
                 only: ['PRESIDENT', 'PRIME-MINISTER'],
-                redirectTo: {
-                    PRESIDENT: (
-                        rejectedPermissionName: string,
-                        activateRouteSnapshot: ActivatedRouteSnapshot,
-                        routeStateSnapshot: RouterStateSnapshot,
-                    ) => {
-                        console.log('rejectedPermissionName', rejectedPermissionName);
-                        console.log('activateRouteSnapshot', activateRouteSnapshot);
-                        console.log('routeStateSnapshot', routeStateSnapshot);
-                        return 'unauth';
-                    },
-                    'PRIME-MINISTER': (
-                        rejectedPermissionName: string,
-                        activateRouteSnapshot: ActivatedRouteSnapshot,
-                        routeStateSnapshot: RouterStateSnapshot,
-                    ) => {
-                        console.log('rejectedPermissionName', rejectedPermissionName);
-                        console.log('activateRouteSnapshot', activateRouteSnapshot);
-                        console.log('routeStateSnapshot', routeStateSnapshot);
-                        return 'unauth';
-                    },
-                },
+                redirectTo: 'unauth',
             },
         },
     },
@@ -43,28 +34,7 @@ const routes: Routes = [
         data: {
             permissions: {
                 only: ['GUEST', 'ADMIN'],
-                redirectTo: {
-                    GUEST: (
-                        rejectedPermissionName: string,
-                        activateRouteSnapshot: ActivatedRouteSnapshot,
-                        routeStateSnapshot: RouterStateSnapshot,
-                    ) => {
-                        console.log('rejectedPermissionName', rejectedPermissionName);
-                        console.log('activateRouteSnapshot', activateRouteSnapshot);
-                        console.log('routeStateSnapshot', routeStateSnapshot);
-                        return 'unauth-guest';
-                    },
-                    ADMIN: (
-                        rejectedPermissionName: string,
-                        activateRouteSnapshot: ActivatedRouteSnapshot,
-                        routeStateSnapshot: RouterStateSnapshot,
-                    ) => {
-                        console.log('rejectedPermissionName', rejectedPermissionName);
-                        console.log('activateRouteSnapshot', activateRouteSnapshot);
-                        console.log('routeStateSnapshot', routeStateSnapshot);
-                        return 'unauth-guest';
-                    },
-                },
+                redirectTo: 'unauth-guest',
             },
         },
     },
@@ -75,6 +45,24 @@ const routes: Routes = [
     {
         path: 'unauth-guest',
         component: UnauthGuestComponent,
+    },
+    {
+        path: '**',
+        component: PageNotFoundComponent,
+        canActivate: [NgxPermissionsGuard],
+        data: {
+            permissions: {
+                only: ['PRESIDENT', 'PRIME-MINISTER', 'ADMIN'],
+                redirectTo: (
+                    rejectedPermissionName: string,
+                    _activateRouteSnapshot: ActivatedRouteSnapshot,
+                    _routeStateSnapshot: RouterStateSnapshot,
+                ) => {
+                    console.log('rejectedPermissionName', rejectedPermissionName);
+                    return '/';
+                },
+            },
+        },
     },
 ];
 

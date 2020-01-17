@@ -7,6 +7,8 @@ import { AppComponent } from './app.component';
 import { HelloComponent, RouteAComponent, RouteBComponent } from './components';
 import { UnauthComponent } from './components/unauth/unauth.component';
 import { UnauthGuestComponent } from './components/unauth-guest/unauth-guest.component';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { HomeComponent } from './components/home/home.component';
 
 @NgModule({
     imports: [BrowserModule, FormsModule, NgxPermissionsModule.forRoot(), AppRoutingModule],
@@ -17,6 +19,8 @@ import { UnauthGuestComponent } from './components/unauth-guest/unauth-guest.com
         RouteBComponent,
         UnauthComponent,
         UnauthGuestComponent,
+        PageNotFoundComponent,
+        HomeComponent,
     ],
     bootstrap: [AppComponent],
 })
