@@ -1,0 +1,54 @@
+<h1>Hello {{name}}!</h1>
+
+<div *ngIf="hasRole$ | async">
+  <ng-container *ngxPermissionsOnly="['PRESIDENT', 'PRIME-MINISTER'] else elseBlock">
+    Hello, I am a president or a prime minister.
+  </ng-container>
+</div>
+
+<ng-template #elseBlock>
+  <div *ngIf="hasRole$ | async">
+    Hello, I am neither a president nor a prime minister.
+  </div>
+</ng-template>
+
+
+<div *ngxPermissionsOnly="['GUEST']">
+  Hello, I am a guest.
+</div>
+
+<div *ngxPermissionsOnly="['ADMIN']">
+  Hello, I am an admin.
+</div>
+
+<div *ngxPermissionsOnly="['PRESIDENT']">
+  Hello, I am a president.
+</div>
+
+<div *ngxPermissionsOnly="['PRIME-MINISTER']">
+  Hello, I am a prime minister.
+</div>
+
+<div class="buttons">
+  <button (click)="addRole('Guest')">Add Guest Role</button>
+  <button (click)="addRole('Admin')">Add Admin Role</button>
+  <button (click)="addRole('President')">Add President Role</button>
+  <button (click)="addRole('PrimeMinister')">Add Prime Minister Role</button>
+  <button (click)="addRole('PresidentAndPrimeMinister')">Add President and Prime Minister Roles</button>
+</div>
+
+<div>
+  <h1>Permissions loaded</h1>  
+  <ul>
+    <li *ngFor="let permission of (permissions$ | async) | keyvalue">
+      {{permission.value.name}}
+    </li>
+  </ul>
+
+  <h1>Roles loaded</h1>  
+  <ul>
+    <li *ngFor="let role of (roles$ | async) | keyvalue">
+      {{role.value.name}}
+    </li>
+  </ul>
+</div>
