@@ -1,5 +1,10 @@
 p {
+  color: goldenrod;
   font-size: 2rem;
-  color: blueviolet;
-  font-style: italic;
+
+  &.dummy {
+    font-size: 1.5rem;
+    color: blueviolet;
+    font-style: italic;
+  }
 }
